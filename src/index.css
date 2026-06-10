@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+
+  --color-horizon-950: #0c0b0a;
+  --color-horizon-900: #121110;
+  --color-horizon-800: #161412;
+  --color-horizon-700: #1f1d1a;
+  --color-horizon-600: #2a2724;
+  --color-horizon-500: #43403b;
+  --color-horizon-400: #6b665f;
+  --color-horizon-300: #9a948b;
+  --color-horizon-200: #c8c2b8;
+  --color-horizon-100: #e4dfd6;
+  --color-horizon-50: #f7f5f0;
+
+  --color-surface: #161412;
+  --color-surface-elevated: #1f1d1a;
+  --color-on-accent: #0c0b0a;
+
+  --color-accent: #c17f59;
+  --color-accent-hover: #d4926a;
+  --color-accent-muted: rgba(193, 127, 89, 0.12);
+
+  --color-stage-contato: #f59e0b;
+  --color-stage-contato-muted: rgba(245, 158, 11, 0.12);
+  --color-stage-visita: #3b82f6;
+  --color-stage-visita-muted: rgba(59, 130, 246, 0.12);
+  --color-stage-proposta: #8b5cf6;
+  --color-stage-proposta-muted: rgba(139, 92, 246, 0.12);
+  --color-stage-fechado: #10b981;
+  --color-stage-fechado-muted: rgba(16, 185, 129, 0.12);
+
+  --color-success: #10b981;
+  --color-success-muted: rgba(16, 185, 129, 0.12);
+  --color-warning: #f59e0b;
+  --color-warning-muted: rgba(245, 158, 11, 0.12);
+  --color-danger: #ef4444;
+  --color-danger-muted: rgba(239, 68, 68, 0.12);
+  --color-info: #3b82f6;
+  --color-info-muted: rgba(59, 130, 246, 0.12);
+
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-elevated: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 24px rgba(193, 127, 89, 0.15);
+
+  --animate-fade-in: fade-in 0.35s ease-out forwards;
+  --animate-slide-up: slide-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+html.light {
+  --color-horizon-950: #f7f5f0;
+  --color-horizon-900: #ffffff;
+  --color-horizon-800: #ffffff;
+  --color-horizon-700: #ede9e2;
+  --color-horizon-600: #d9d4cb;
+  --color-horizon-500: #a8a299;
+  --color-horizon-400: #7a746b;
+  --color-horizon-300: #5c5650;
+  --color-horizon-200: #3a3632;
+  --color-horizon-100: #2a2724;
+  --color-horizon-50: #141210;
+
+  --color-surface: #ffffff;
+  --color-surface-elevated: #faf8f5;
+  --color-on-accent: #ffffff;
+
+  --color-accent: #a86b4a;
+  --color-accent-hover: #965d3f;
+  --color-accent-muted: rgba(168, 107, 74, 0.1);
+
+  --shadow-card: 0 1px 2px rgba(20, 18, 16, 0.04), 0 1px 3px rgba(20, 18, 16, 0.03);
+  --shadow-elevated: 0 4px 20px rgba(20, 18, 16, 0.08), 0 1px 3px rgba(20, 18, 16, 0.04);
+  --shadow-glow: 0 0 0 1px rgba(168, 107, 74, 0.2), 0 2px 12px rgba(168, 107, 74, 0.1);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer base {
+  * {
+    @apply border-horizon-700;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-horizon-950 text-horizon-200 font-sans;
+    font-feature-settings: "tnum" 1;
+  }
+
+  html.light body {
+    @apply text-horizon-300;
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-horizon-50;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .architectural-grid {
+    background-image:
+      linear-gradient(rgba(193, 127, 89, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(193, 127, 89, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  html.light .architectural-grid {
+    background-image:
+      linear-gradient(rgba(168, 107, 74, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168, 107, 74, 0.04) 1px, transparent 1px);
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-horizon-600) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--color-horizon-600);
+    border-radius: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
