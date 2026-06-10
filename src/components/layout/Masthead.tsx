@@ -1,8 +1,9 @@
-import { NavLink } from 'react-router-dom'
-import { Search, Sun, Moon, Bell, ChevronDown } from 'lucide-react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { Search, Sun, Moon, Bell, ChevronDown, Settings, User, LogOut, HelpCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useApp } from '@/context/AppContext'
 import { useData } from '@/context/DataContext'
+import { useToast } from '@/context/ToastContext'
 import { navigation } from '@/config/navigation'
 import { Button } from '@/components/ui/Button'
 import { Avatar } from '@/components/ui/Avatar'
@@ -11,10 +12,18 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 export function Masthead() {
   const { theme, setTheme, setCommandOpen, activeBranchId, setActiveBranchId } = useApp()
-  const { branches } = useData()
+  const { branches, brokers } = useData()
+  const { toast } = useToast()
+  const navigate = useNavigate()
   const activeBranch = branches.find((b) => b.id === activeBranchId)
+  const user = brokers[0]
 
   const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark')
+
+  const handleLogout = () => {
+    toast('Sessão encerrada. Até logo!', 'info')
+    navigate('/')
+  }
 
   return (
     <header className="sticky top-0 z-50 shrink-0 border-b border-horizon-700/80 bg-horizon-950/90 backdrop-blur-xl">
@@ -122,12 +131,75 @@ export function Masthead() {
             <span className="absolute top-2 right-2 size-1.5 rounded-full bg-accent" />
           </Button>
 
-          <div className="hidden sm:flex items-center gap-2 border-l border-horizon-700 pl-3 ml-1">
-            <Avatar name="Ana Costa" size="sm" />
-            <span className="text-xs text-horizon-400 hidden lg:block">Ana</span>
-          </div>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger className="flex items-center gap-2 border-l border-horizon-700 pl-3 ml-1 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-horizon-950">
+              <Avatar name={user?.name ?? 'Usuário'} size="sm" />
+              <span className="text-xs text-horizon-400 hidden lg:block max-w-[80px] truncate">
+                {user?.name.split(' ')[0]}
+              </span>
+              <ChevronDown className="size-3 text-horizon-500 hidden lg:block" />
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Portal>
+              <DropdownMenu.Content
+                className="z-50 min-w-[220px] rounded-xl border border-horizon-700 bg-surface p-1.5 shadow-elevated"
+                sideOffset={8}
+                align="end"
+              >
+                <div className="px-3 py-2.5 border-b border-horizon-800 mb-1">
+                  <p className="text-sm font-medium text-horizon-100">{user?.name}</p>
+                  <p className="text-xs text-horizon-500 truncate">{user?.email}</p>
+                  <p className="text-[10px] text-horizon-600 mt-0.5">Corretora</p>
+                </div>
+
+                <UserMenuItem icon={User} label="Meu perfil" onSelect={() => navigate('/configuracoes')} />
+                <UserMenuItem icon={Settings} label="Configurações" onSelect={() => navigate('/configuracoes')} />
+                <UserMenuItem
+                  icon={HelpCircle}
+                  label="Ajuda e suporte"
+                  onSelect={() => toast('Central de ajuda em breve', 'info')}
+                />
+
+                <DropdownMenu.Separator className="my-1 h-px bg-horizon-800" />
+
+                <UserMenuItem
+                  icon={LogOut}
+                  label="Sair da conta"
+                  onSelect={handleLogout}
+                  destructive
+                />
+              </DropdownMenu.Content>
+            </DropdownMenu.Portal>
+          </DropdownMenu.Root>
         </div>
       </div>
     </header>
+  )
+}
+
+function UserMenuItem({
+  icon: Icon,
+  label,
+  onSelect,
+  destructive,
+}: {
+  icon: typeof Settings
+  label: string
+  onSelect: () => void
+  destructive?: boolean
+}) {
+  return (
+    <DropdownMenu.Item
+      className={cn(
+        'flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm outline-none cursor-pointer',
+        'data-[highlighted]:bg-horizon-800',
+        destructive
+          ? 'text-danger data-[highlighted]:text-danger'
+          : 'text-horizon-200 data-[highlighted]:text-horizon-50',
+      )}
+      onSelect={onSelect}
+    >
+      <Icon className="size-4 shrink-0 opacity-70" />
+      {label}
+    </DropdownMenu.Item>
   )
 }
