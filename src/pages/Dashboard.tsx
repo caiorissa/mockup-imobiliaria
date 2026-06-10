@@ -12,11 +12,7 @@ export function Dashboard() {
 
   return (
     <div className="space-y-12 md:space-y-16">
-      <p className="font-display text-2xl md:text-3xl text-horizon-100 -mb-6 md:-mb-8">
-        {greeting}, <span className="text-horizon-400">{userName}</span>
-      </p>
-
-      <DashboardHero />
+      <DashboardHero greeting={greeting} userName={userName} />
       <PipelineStrip />
 
       <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 pt-4 border-t border-horizon-800">

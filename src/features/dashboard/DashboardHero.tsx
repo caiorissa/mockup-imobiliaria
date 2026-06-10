@@ -6,7 +6,12 @@ import { useDashboardMetrics } from '@/hooks/useDashboardMetrics'
 import { formatCurrency, formatPercent } from '@/lib/format'
 import { cn } from '@/lib/cn'
 
-export function DashboardHero() {
+interface DashboardHeroProps {
+  greeting: string
+  userName: string
+}
+
+export function DashboardHero({ greeting, userName }: DashboardHeroProps) {
   const {
     pipelineTotal,
     activeProperties,
@@ -30,16 +35,25 @@ export function DashboardHero() {
   ]
 
   return (
-    <div className="relative -mx-4 md:-mx-8 overflow-hidden">
+    <div className="relative -mx-4 md:-mx-8 mt-2 md:mt-4 overflow-x-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-accent/8 via-horizon-900 to-horizon-950" />
       <div className="absolute inset-0 opacity-[0.04]" style={{
         backgroundImage: 'repeating-linear-gradient(90deg, #c17f59 0, #c17f59 1px, transparent 1px, transparent 80px)',
       }} />
 
-      <div className="relative px-4 md:px-8 py-10 md:py-14">
+      <div className="relative px-4 md:px-8 pt-12 pb-10 md:pt-16 md:pb-14">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
+          className="font-display text-2xl md:text-3xl text-horizon-100 mb-8 md:mb-10"
+        >
+          {greeting}, <span className="text-horizon-400">{userName}</span>
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.03 }}
           className="text-xs uppercase tracking-[0.2em] text-accent/80 mb-3"
         >
           Operação · São Paulo
