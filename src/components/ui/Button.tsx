@@ -28,6 +28,20 @@ const sizes = {
   icon: 'size-9 rounded-lg',
 }
 
+const buttonClassName = (
+  variant: keyof typeof variants,
+  size: keyof typeof sizes,
+  className?: string,
+) =>
+  cn(
+    'inline-flex items-center justify-center font-medium transition-all duration-200',
+    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
+    'disabled:opacity-50 disabled:pointer-events-none',
+    variants[variant],
+    sizes[size],
+    className,
+  )
+
 export function Button({
   className,
   variant = 'primary',
@@ -38,22 +52,22 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const Comp = asChild ? Slot : 'button'
+  if (asChild) {
+    return (
+      <Slot className={buttonClassName(variant, size, className)} {...props}>
+        {children}
+      </Slot>
+    )
+  }
+
   return (
-    <Comp
-      className={cn(
-        'inline-flex items-center justify-center font-medium transition-all duration-200',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
-        'disabled:opacity-50 disabled:pointer-events-none',
-        variants[variant],
-        sizes[size],
-        className,
-      )}
+    <button
+      className={buttonClassName(variant, size, className)}
       disabled={disabled || loading}
       {...props}
     >
       {loading && <Loader2 className="size-4 animate-spin" />}
       {children}
-    </Comp>
+    </button>
   )
 }

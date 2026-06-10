@@ -7,7 +7,6 @@ import { TableCard } from '@/components/ui/TableCard'
 import { FilterChipBar, type FilterChip } from '@/components/ui/FilterChipBar'
 import { Button } from '@/components/ui/Button'
 import { Sheet } from '@/components/ui/Sheet'
-import { Popover } from '@/components/ui/Popover'
 import { PropertyTable } from '@/features/properties/PropertyTable'
 import { PropertyCard } from '@/features/properties/PropertyCard'
 import { PropertyPreview } from '@/features/properties/PropertyPreview'
@@ -164,14 +163,12 @@ export function Properties() {
         <PropertyForm onSuccess={() => setFormOpen(false)} onCancel={() => setFormOpen(false)} />
       </Sheet>
 
-      <Popover
-        open={filterOpen}
-        onOpenChange={setFilterOpen}
-        trigger={<span />}
-        className="w-80"
-      >
-        <div className="space-y-4">
-          <p className="text-sm font-medium text-horizon-100">Filtros</p>
+      {filterOpen && (
+        <div className="rounded-xl border border-horizon-700 bg-surface p-5 shadow-card space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium text-horizon-100">Filtros avançados</p>
+            <Button variant="ghost" size="sm" onClick={() => setFilterOpen(false)}>Fechar</Button>
+          </div>
           <div>
             <p className="text-xs text-horizon-400 mb-2">Bairro</p>
             <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto">
@@ -193,11 +190,11 @@ export function Properties() {
           </div>
           <div>
             <p className="text-xs text-horizon-400 mb-2">
-              Faixa de preço: R$ {(priceMin / 1000).toFixed(0)}k — R$ {(priceMax / 1000000).toFixed(1)}M
+              Preço máximo: R$ {(priceMax / 1000000).toFixed(1)}M
             </p>
             <input
               type="range"
-              min={0}
+              min={500000}
               max={10000000}
               step={100000}
               value={priceMax}
@@ -224,11 +221,8 @@ export function Properties() {
               ))}
             </div>
           </div>
-          <Button size="sm" className="w-full" onClick={() => setFilterOpen(false)}>
-            Aplicar filtros
-          </Button>
         </div>
-      </Popover>
+      )}
     </div>
   )
 }

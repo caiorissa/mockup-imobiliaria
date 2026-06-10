@@ -17,7 +17,7 @@ export function PropertyForm({ onSuccess, onCancel }: PropertyFormProps) {
   const { toast } = useToast()
   const [title, setTitle] = useState('')
   const [address, setAddress] = useState('')
-  const [neighborhood, setNeighborhood] = useState(neighborhoods[0])
+  const [neighborhood, setNeighborhood] = useState<string>(neighborhoods[0])
   const [type, setType] = useState<PropertyType>('apartamento')
   const [price, setPrice] = useState('')
   const [area, setArea] = useState('')

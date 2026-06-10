@@ -7,6 +7,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  useDroppable,
   type DragEndEvent,
   type DragStartEvent,
 } from '@dnd-kit/core'
@@ -167,10 +168,15 @@ function KanbanColumn({
   onSelectLead: (id: string) => void
   selectedLeadId: string | null
 }) {
+  const { setNodeRef, isOver } = useDroppable({ id: stage })
+
   return (
     <div
-      id={stage}
-      className="w-[280px] lg:w-auto flex flex-col rounded-xl border border-horizon-700 bg-horizon-900/50"
+      ref={setNodeRef}
+      className={cn(
+        'w-[280px] lg:w-auto flex flex-col rounded-xl border bg-horizon-900/50 transition-colors',
+        isOver ? 'border-accent bg-accent-muted/10' : 'border-horizon-700',
+      )}
     >
       <div className="p-3 border-b border-horizon-700">
         <div className="flex items-center justify-between mb-2">
