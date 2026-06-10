@@ -44,7 +44,8 @@ export function PipelineStrip() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: stageIndex * 0.06 }}
               className={cn(
-                'snap-start shrink-0 w-[260px] border p-5 flex flex-col min-h-[220px]',
+                'snap-start shrink-0 w-[260px] rounded-2xl border p-5 flex flex-col min-h-[220px]',
+                'transition-shadow hover:shadow-card',
                 stageAccent[stage.id],
               )}
             >
