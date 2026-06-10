@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion'
 import { Masthead } from './Masthead'
 import { CommandMenu } from './CommandMenu'
 import { FloatingDock } from './FloatingDock'
+import { Footer } from './Footer'
 import { PageTransition } from '@/components/motion/PageTransition'
 import { Skeleton } from '@/components/ui/Skeleton'
 
@@ -32,6 +33,7 @@ export function AppLayout() {
           </Suspense>
         </div>
       </main>
+      <Footer />
       <CommandMenu />
       <FloatingDock />
     </div>
