@@ -20,6 +20,9 @@ const Leads = lazy(() =>
 const Settings = lazy(() =>
   import('@/pages/Settings').then((m) => ({ default: m.Settings })),
 )
+const HelpCenter = lazy(() =>
+  import('@/pages/HelpCenter').then((m) => ({ default: m.HelpCenter })),
+)
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +35,7 @@ export const router = createBrowserRouter([
       { path: 'visitas', element: <Visits /> },
       { path: 'leads', element: <Leads /> },
       { path: 'configuracoes', element: <Settings /> },
+      { path: 'ajuda', element: <HelpCenter /> },
     ],
   },
 ])

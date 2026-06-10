@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Search, Sun, Moon, Bell, ChevronDown, Settings, User, LogOut, HelpCircle } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { useApp } from '@/context/AppContext'
 import { useData } from '@/context/DataContext'
 import { useToast } from '@/context/ToastContext'
@@ -26,10 +25,10 @@ export function Masthead() {
   }
 
   return (
-    <header className="sticky top-0 z-50 shrink-0 border-b border-horizon-700/80 bg-horizon-950/90 backdrop-blur-xl">
-      <div className="flex h-16 items-center gap-6 px-4 md:px-8">
+    <header className="sticky top-0 z-50 shrink-0 overflow-hidden border-b border-horizon-700/80 bg-horizon-950/90 backdrop-blur-xl">
+      <div className="flex h-16 items-stretch gap-6 px-4 md:px-8">
         {/* Brand + branch */}
-        <div className="flex items-center gap-4 shrink-0">
+        <div className="flex items-center gap-4 shrink-0 self-center">
           <div className="flex items-center gap-2.5">
             <div className="flex size-9 items-center justify-center border border-accent/40 bg-accent/10">
               <svg viewBox="0 0 32 32" className="size-5" fill="none">
@@ -47,7 +46,7 @@ export function Masthead() {
           </div>
 
           <DropdownMenu.Root>
-            <DropdownMenu.Trigger className="hidden lg:flex items-center gap-1.5 text-xs text-horizon-400 hover:text-horizon-200 transition-colors border-l border-horizon-700 pl-4">
+            <DropdownMenu.Trigger className="hidden lg:flex items-center gap-1.5 text-xs text-horizon-400 hover:text-horizon-200 transition-colors bg-transparent border-0 outline-none cursor-pointer">
               <span className="max-w-[120px] truncate">{activeBranch?.name}</span>
               <ChevronDown className="size-3 shrink-0" />
             </DropdownMenu.Trigger>
@@ -72,7 +71,7 @@ export function Masthead() {
         </div>
 
         {/* Horizontal nav — desktop */}
-        <nav className="hidden md:flex flex-1 items-center gap-1 min-w-0 overflow-x-auto scrollbar-thin">
+        <nav className="hidden md:flex flex-1 items-stretch gap-1 min-w-0 overflow-hidden">
           {navigation.map((item) => (
             <NavLink
               key={item.path}
@@ -80,31 +79,30 @@ export function Masthead() {
               end={item.path === '/'}
               className={({ isActive }) =>
                 cn(
-                  'relative shrink-0 px-4 py-2 text-sm transition-colors',
+                  'relative flex shrink-0 items-center px-4 text-sm transition-colors',
                   isActive
-                    ? 'text-horizon-50 font-medium'
+                    ? 'text-horizon-50 font-medium shadow-[inset_0_-2px_0_0_var(--color-accent)]'
                     : 'text-horizon-500 hover:text-horizon-200',
                 )
               }
             >
-              {({ isActive }) => (
-                <>
-                  {item.label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="masthead-active"
-                      className="absolute inset-x-2 -bottom-[17px] h-px bg-accent"
-                      transition={{ type: 'spring', stiffness: 400, damping: 35 }}
-                    />
-                  )}
-                </>
-              )}
+              {item.label}
             </NavLink>
           ))}
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-1 shrink-0 ml-auto">
+        <div className="flex items-center gap-1 shrink-0 self-center">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate('/ajuda')}
+            className="hidden md:flex gap-1.5 text-horizon-500 hover:text-horizon-200"
+          >
+            <HelpCircle className="size-3.5" />
+            <span className="text-xs">Ajuda</span>
+          </Button>
+
           <Button
             variant="ghost"
             size="sm"
@@ -132,7 +130,7 @@ export function Masthead() {
           </Button>
 
           <DropdownMenu.Root>
-            <DropdownMenu.Trigger className="flex items-center gap-2 border-l border-horizon-700 pl-3 ml-1 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-horizon-950">
+            <DropdownMenu.Trigger className="flex items-center gap-2 ml-1 rounded-lg bg-transparent border-0 outline-none cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-horizon-950">
               <Avatar name={user?.name ?? 'Usuário'} size="sm" />
               <span className="text-xs text-horizon-400 hidden lg:block max-w-[80px] truncate">
                 {user?.name.split(' ')[0]}
@@ -155,8 +153,8 @@ export function Masthead() {
                 <UserMenuItem icon={Settings} label="Configurações" onSelect={() => navigate('/configuracoes')} />
                 <UserMenuItem
                   icon={HelpCircle}
-                  label="Ajuda e suporte"
-                  onSelect={() => toast('Central de ajuda em breve', 'info')}
+                  label="Central de ajuda"
+                  onSelect={() => navigate('/ajuda')}
                 />
 
                 <DropdownMenu.Separator className="my-1 h-px bg-horizon-800" />

@@ -20,7 +20,7 @@ function PageLoader() {
 
 export function AppLayout() {
   return (
-    <div className="min-h-dvh flex flex-col bg-horizon-950">
+    <div className="min-h-dvh flex flex-col overflow-x-hidden bg-horizon-950">
       <Masthead />
       <main className="flex-1 pb-28 md:pb-12">
         <div className="mx-auto w-full max-w-[1280px] px-4 md:px-8 py-8 md:py-10">
