@@ -12,6 +12,7 @@ import { PropertyCard } from '@/features/properties/PropertyCard'
 import { PropertyPreview } from '@/features/properties/PropertyPreview'
 import { PropertyForm } from '@/features/properties/PropertyForm'
 import type { Property, PropertyStatus } from '@/types'
+import { PageHeader } from '@/components/ui/PageHeader'
 import { cn } from '@/lib/cn'
 
 export function Properties() {
@@ -70,41 +71,42 @@ export function Properties() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-semibold text-horizon-50">Imóveis</h1>
-          <p className="mt-1 text-horizon-400">Cadastro e gestão do portfólio</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="flex rounded-lg border border-horizon-700 p-0.5">
-            <button
-              onClick={() => setView('table')}
-              className={cn(
-                'rounded-md p-2 transition-colors',
-                view === 'table' ? 'bg-horizon-700 text-horizon-100' : 'text-horizon-400',
-              )}
-              aria-label="Visualização em tabela"
-            >
-              <List className="size-4" />
-            </button>
-            <button
-              onClick={() => setView('grid')}
-              className={cn(
-                'rounded-md p-2 transition-colors',
-                view === 'grid' ? 'bg-horizon-700 text-horizon-100' : 'text-horizon-400',
-              )}
-              aria-label="Visualização em grid"
-            >
-              <LayoutGrid className="size-4" />
-            </button>
+    <div className="space-y-8">
+      <PageHeader
+        overline="Portfólio"
+        title="Imóveis"
+        description="Cadastro e gestão do portfólio"
+        action={
+          <div className="flex items-center gap-2">
+            <div className="flex border border-horizon-700 p-0.5">
+              <button
+                onClick={() => setView('table')}
+                className={cn(
+                  'p-2 transition-colors',
+                  view === 'table' ? 'bg-horizon-800 text-horizon-100' : 'text-horizon-500',
+                )}
+                aria-label="Visualização em tabela"
+              >
+                <List className="size-4" />
+              </button>
+              <button
+                onClick={() => setView('grid')}
+                className={cn(
+                  'p-2 transition-colors',
+                  view === 'grid' ? 'bg-horizon-800 text-horizon-100' : 'text-horizon-500',
+                )}
+                aria-label="Visualização em grid"
+              >
+                <LayoutGrid className="size-4" />
+              </button>
+            </div>
+            <Button onClick={() => setFormOpen(true)}>
+              <Plus className="size-4" />
+              Cadastrar
+            </Button>
           </div>
-          <Button onClick={() => setFormOpen(true)}>
-            <Plus className="size-4" />
-            Cadastrar imóvel
-          </Button>
-        </div>
-      </div>
+        }
+      />
 
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="flex-1 min-w-0">

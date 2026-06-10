@@ -5,6 +5,7 @@ import { useToast } from '@/context/ToastContext'
 import { Avatar } from '@/components/ui/Avatar'
 import { cn } from '@/lib/cn'
 import type { Theme } from '@/types'
+import { PageHeader } from '@/components/ui/PageHeader'
 
 export function Settings() {
   const { theme, setTheme } = useApp()
@@ -38,13 +39,14 @@ export function Settings() {
   }
 
   return (
-    <div className="space-y-8 max-w-2xl">
-      <div>
-        <h1 className="font-display text-2xl font-semibold text-horizon-50">Configurações</h1>
-        <p className="mt-1 text-horizon-400">Personalize sua experiência no Horizonte</p>
-      </div>
+    <div className="space-y-10 max-w-2xl">
+      <PageHeader
+        overline="Sistema"
+        title="Configurações"
+        description="Personalize sua experiência no Horizonte"
+      />
 
-      <section className="rounded-xl border border-horizon-700 bg-surface p-6 shadow-card">
+      <section className="border border-horizon-800 p-6">
         <h2 className="font-display text-lg font-semibold text-horizon-100">Perfil</h2>
         <div className="mt-4 flex items-center gap-4">
           <Avatar name="Ana Costa" size="lg" />
@@ -56,9 +58,9 @@ export function Settings() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-horizon-700 bg-surface p-6 shadow-card">
+      <section className="border border-horizon-800 p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Sun className="size-4 text-horizon-400" />
+          <Sun className="size-4 text-horizon-500" />
           <h2 className="font-display text-lg font-semibold text-horizon-100">Aparência</h2>
         </div>
         <div className="grid grid-cols-3 gap-3">
@@ -83,9 +85,9 @@ export function Settings() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-horizon-700 bg-surface p-6 shadow-card">
+      <section className="border border-horizon-800 p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Bell className="size-4 text-horizon-400" />
+          <Bell className="size-4 text-horizon-500" />
           <h2 className="font-display text-lg font-semibold text-horizon-100">Notificações</h2>
         </div>
         <div className="space-y-3">
@@ -110,9 +112,9 @@ export function Settings() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-horizon-700 bg-surface p-6 shadow-card">
+      <section className="border border-horizon-800 p-6">
         <div className="flex items-center gap-2 mb-4">
-          <Kanban className="size-4 text-horizon-400" />
+          <Kanban className="size-4 text-horizon-500" />
           <h2 className="font-display text-lg font-semibold text-horizon-100">Funil</h2>
         </div>
         <div className="space-y-3">
@@ -131,7 +133,7 @@ export function Settings() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-horizon-700 bg-surface p-6 shadow-card">
+      <section className="border border-horizon-800 p-6">
         <h2 className="font-display text-lg font-semibold text-horizon-100">Equipe</h2>
         <ul className="mt-4 space-y-3">
           {brokers.map((broker) => (

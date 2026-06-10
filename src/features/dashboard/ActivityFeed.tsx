@@ -12,55 +12,44 @@ const icons = {
   deal: Handshake,
 }
 
-const colors = {
-  lead: 'text-stage-contato bg-stage-contato-muted',
-  visit: 'text-stage-visita bg-stage-visita-muted',
-  property: 'text-accent bg-accent-muted',
-  deal: 'text-stage-fechado bg-stage-fechado-muted',
-}
-
 export function ActivityFeed() {
   const { activities } = useData()
 
   return (
-    <div className="rounded-xl border border-horizon-700 bg-surface shadow-card">
-      <div className="border-b border-horizon-700 px-5 py-4">
-        <h2 className="font-display text-lg font-semibold text-horizon-100">Atividade recente</h2>
-        <p className="text-sm text-horizon-400">Últimas movimentações</p>
-      </div>
+    <div>
+      <h3 className="font-display text-lg font-semibold text-horizon-50 mb-6">Movimentações</h3>
       <motion.ul
         variants={staggerContainer}
         initial="initial"
         animate="animate"
-        className="p-4 space-y-1"
+        className="divide-y divide-horizon-800"
       >
-        {activities.slice(0, 6).map((activity) => (
-          <ActivityItem key={activity.id} activity={activity} />
+        {activities.slice(0, 8).map((activity) => (
+          <ActivityRow key={activity.id} activity={activity} />
         ))}
       </motion.ul>
     </div>
   )
 }
 
-function ActivityItem({ activity }: { activity: Activity }) {
+function ActivityRow({ activity }: { activity: Activity }) {
   const Icon = icons[activity.type]
-  const color = colors[activity.type]
 
   return (
     <motion.li
       variants={staggerItem}
-      className="flex items-start gap-3 rounded-lg px-3 py-2.5 hover:bg-horizon-800/50 transition-colors"
+      className="flex gap-4 py-4 first:pt-0 group"
     >
-      <div className={`flex size-8 shrink-0 items-center justify-center rounded-lg ${color}`}>
-        <Icon className="size-4" />
+      <div className="flex size-8 shrink-0 items-center justify-center border border-horizon-700 text-horizon-500 group-hover:border-accent/40 group-hover:text-accent transition-colors">
+        <Icon className="size-3.5" />
       </div>
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium text-horizon-100">{activity.title}</p>
-        <p className="text-xs text-horizon-400 truncate">{activity.description}</p>
+        <p className="text-sm text-horizon-200">{activity.title}</p>
+        <p className="text-xs text-horizon-600 truncate mt-0.5">{activity.description}</p>
       </div>
-      <span className="text-[10px] text-horizon-500 shrink-0 tabular-nums">
+      <time className="text-[10px] text-horizon-600 shrink-0 tabular-nums">
         {formatRelative(activity.timestamp)}
-      </span>
+      </time>
     </motion.li>
   )
 }

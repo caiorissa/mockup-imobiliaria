@@ -33,7 +33,7 @@ export function TableCard({
   return (
     <div
       className={cn(
-        'rounded-xl border border-horizon-700 bg-surface shadow-card overflow-hidden',
+        'border border-horizon-800 bg-horizon-900/30 overflow-hidden',
         className,
       )}
     >

@@ -16,6 +16,7 @@ import { Badge } from '@/components/ui/Badge'
 import { Avatar } from '@/components/ui/Avatar'
 import { Button } from '@/components/ui/Button'
 import type { Lead } from '@/types'
+import { PageHeader } from '@/components/ui/PageHeader'
 import { cn } from '@/lib/cn'
 
 type QuickFilter = 'all' | 'sem-contato' | 'quente' | 'frio'
@@ -164,11 +165,12 @@ export function Leads() {
   ]
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-2xl font-semibold text-horizon-50">Leads</h1>
-        <p className="mt-1 text-horizon-400">Gestão de contatos e oportunidades</p>
-      </div>
+    <div className="space-y-8">
+      <PageHeader
+        overline="Contatos"
+        title="Leads"
+        description="Gestão de contatos e oportunidades"
+      />
 
       <TableCard
         title="Todos os leads"

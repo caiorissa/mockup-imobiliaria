@@ -7,6 +7,7 @@ import { VisitCard } from '@/features/visits/VisitCard'
 import { Button } from '@/components/ui/Button'
 import { Select } from '@/components/ui/Select'
 import type { VisitPeriod } from '@/types'
+import { PageHeader } from '@/components/ui/PageHeader'
 
 const periods: { id: VisitPeriod; label: string }[] = [
   { id: 'manha', label: 'Manhã' },
@@ -43,24 +44,25 @@ export function Visits() {
   }, [dayVisits])
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-semibold text-horizon-50">Visitas</h1>
-          <p className="mt-1 text-horizon-400">Agenda semanal de visitas marcadas</p>
-        </div>
-        <Select
-          value={brokerFilter}
-          onValueChange={setBrokerFilter}
-          options={[
-            { value: 'all', label: 'Todos os corretores' },
-            ...brokers.map((b) => ({ value: b.id, label: b.name })),
-          ]}
-          className="w-48"
-        />
-      </div>
+    <div className="space-y-8">
+      <PageHeader
+        overline="Agenda"
+        title="Visitas"
+        description="Agenda semanal de visitas marcadas"
+        action={
+          <Select
+            value={brokerFilter}
+            onValueChange={setBrokerFilter}
+            options={[
+              { value: 'all', label: 'Todos os corretores' },
+              ...brokers.map((b) => ({ value: b.id, label: b.name })),
+            ]}
+            className="w-48"
+          />
+        }
+      />
 
-      <div className="rounded-xl border border-horizon-700 bg-surface p-4 shadow-card">
+      <div className="border border-horizon-800 p-4 md:p-6">
         <div className="flex items-center justify-between mb-4">
           <Button
             variant="ghost"

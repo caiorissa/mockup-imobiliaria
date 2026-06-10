@@ -14,6 +14,7 @@ import {
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Plus } from 'lucide-react'
+import { PageHeader } from '@/components/ui/PageHeader'
 import { useData } from '@/context/DataContext'
 import { PIPELINE_STAGES, type Lead, type PipelineStage } from '@/types'
 import { formatCompactCurrency } from '@/lib/format'
@@ -76,16 +77,17 @@ export function KanbanBoard() {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="font-display text-2xl font-semibold text-horizon-50">Funil de atendimento</h1>
-          <p className="mt-1 text-horizon-400">Arraste leads entre estágios para atualizar o pipeline</p>
-        </div>
-        <Button onClick={() => setNewLeadOpen(true)}>
-          <Plus className="size-4" />
-          Novo lead
-        </Button>
-      </div>
+      <PageHeader
+        overline="Pipeline"
+        title="Funil de atendimento"
+        description="Arraste leads entre estágios para atualizar o pipeline"
+        action={
+          <Button onClick={() => setNewLeadOpen(true)}>
+            <Plus className="size-4" />
+            Novo lead
+          </Button>
+        }
+      />
 
       <div className="flex flex-col lg:flex-row gap-4 min-h-[calc(100dvh-12rem)]">
         <div className="flex-1 lg:w-[60%] overflow-x-auto scrollbar-thin pb-2">
