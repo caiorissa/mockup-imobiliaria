@@ -1,20 +1,4 @@
-import type { Activity, DashboardMetrics } from '@/types'
-
-export const dashboardMetrics: DashboardMetrics = {
-  pipelineTotal: 28450000,
-  activeProperties: 19,
-  visitsToday: 5,
-  conversionRate: 23.4,
-  pipelineSparkline: [
-    { day: 'Seg', value: 22 },
-    { day: 'Ter', value: 24 },
-    { day: 'Qua', value: 21 },
-    { day: 'Qui', value: 26 },
-    { day: 'Sex', value: 28 },
-    { day: 'Sáb', value: 25 },
-    { day: 'Dom', value: 23 },
-  ],
-}
+import type { Activity } from '@/types'
 
 export const activities: Activity[] = [
   { id: 'act-1', type: 'lead', title: 'Novo lead: Patricia Souza', description: 'Indicação — interesse em casa Jardins', timestamp: '2026-06-09T14:30:00' },

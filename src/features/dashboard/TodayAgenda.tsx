@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Clock, MapPin } from 'lucide-react'
 import { useData } from '@/context/DataContext'
+import { MOCK_TODAY } from '@/lib/dashboard'
 import { formatDateTime } from '@/lib/format'
 import { Badge } from '@/components/ui/Badge'
 import { Avatar } from '@/components/ui/Avatar'
@@ -10,9 +11,8 @@ import { staggerContainer, staggerItem } from '@/lib/motion'
 
 export function TodayAgenda() {
   const { visits, getLead, getProperty, getBroker } = useData()
-  const today = '2026-06-10'
   const todayVisits = visits
-    .filter((v) => v.date === today && v.status !== 'cancelada')
+    .filter((v) => v.date === MOCK_TODAY && v.status !== 'cancelada')
     .sort((a, b) => a.time.localeCompare(b.time))
 
   return (
@@ -32,6 +32,11 @@ export function TodayAgenda() {
         animate="animate"
         className="divide-y divide-horizon-700"
       >
+        {todayVisits.length === 0 && (
+          <li className="px-5 py-10 text-center text-sm text-horizon-500">
+            Nenhuma visita agendada para hoje
+          </li>
+        )}
         {todayVisits.map((visit) => {
           const lead = getLead(visit.leadId)
           const property = getProperty(visit.propertyId)
